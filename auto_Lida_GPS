@@ -1,0 +1,3 @@
+#!/bin/bash
+tty_pairs ttyS6,ttyS10 && echo "GPS&Lida OK"
+

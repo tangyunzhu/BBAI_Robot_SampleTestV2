@@ -1,0 +1,77 @@
+#!/bin/bash
+
+u1=335
+u2=371
+u3=311
+u4=369
+
+Q1A=423
+Q1B=424
+Q2A=324
+Q2B=325
+
+CAP1=275
+CAP2=277
+CAP3=278
+CAP4=361
+
+OE1=330
+OE2=331
+
+s=$(gpio input 318)
+s=$(gpio input 346)
+s=$(gpio input 411)
+s=$(gpio input 416)
+s=$(gpio input 344)
+s=$(gpio input 406)
+
+
+test1()	
+{
+	gpio set $OE2;gpio set $OE1
+	sleep 0.1
+	QEP1=$(gpio input $Q1A)  #QEP0_A
+	QEP2=$(gpio input $Q1B)	#QEP0_B
+	QEP3=$(gpio input $Q2A)	#QEP1_A
+	QEP4=$(gpio input $Q2B)	#QEP1_B
+	dCAP1=$(gpio input $CAP1) #CAP1
+	dCAP2=$(gpio input $CAP2) #CAP2
+	dCAP3=$(gpio input $CAP3) #CAP3
+	dCAP4=$(gpio input $CAP4) #CAP4
+	echo -ne $QEP1,$QEP2,$QEP3,$QEP4,$dCAP1,$dCAP2,$dCAP3,$dCAP4
+	[ $QEP1 -eq 1 ] && [ $QEP2 -eq 1 ] && [ $QEP3 -eq 1 ] && [ $QEP4 -eq 1 ] && [ $dCAP1 -eq 1 ] && [ $dCAP2 -eq 0 ] && [ $dCAP3 -eq 0 ] && [ $dCAP4 -eq 1 ] && echo " -->Disable OK"
+}
+
+test2()
+{
+	gpio clear $OE2; gpio clear $OE1
+        gpio set $u1;gpio clear $u2;gpio set $u3;gpio clear $u4
+        sleep 0.1
+        QEP1=$(gpio input $Q1A)  #QEP0_A
+        QEP2=$(gpio input $Q1B) #QEP0_B
+        QEP3=$(gpio input $Q2A) #QEP1_A
+        QEP4=$(gpio input $Q2B) #QEP1_B
+        dCAP1=$(gpio input $CAP1) #CAP1
+        dCAP2=$(gpio input $CAP2) #CAP2
+        dCAP3=$(gpio input $CAP3) #CAP3
+        dCAP4=$(gpio input $CAP4) #CAP4
+        echo -ne $QEP1,$QEP2,$QEP3,$QEP4,$dCAP1,$dCAP2,$dCAP3,$dCAP4
+        [ $QEP1 -eq 1 ] && [ $QEP2 -eq 0 ] && [ $QEP3 -eq 0 ] && [ $QEP4 -eq 1 ] && [ $dCAP1 -eq 0 ] && [ $dCAP2 -eq 1 ] && [ $dCAP3 -eq 0 ] && [ $dCAP4 -eq 1 ] && echo " -->Enable1 OK"
+        gpio clear $u1;gpio set $u2;gpio clear $u3;gpio set $u4
+        sleep 0.1
+        QEP1=$(gpio input $Q1A)  #QEP0_A
+        QEP2=$(gpio input $Q1B)  #QEP0_B
+        QEP3=$(gpio input $Q2A)  #QEP1_A
+        QEP4=$(gpio input $Q2B)  #QEP1_B
+        dCAP1=$(gpio input $CAP1) #CAP1
+        dCAP2=$(gpio input $CAP2) #CAP2
+        dCAP3=$(gpio input $CAP3) #CAP3
+        dCAP4=$(gpio input $CAP4) #CAP4
+        echo -ne $QEP1,$QEP2,$QEP3,$QEP4,$dCAP1,$dCAP2,$dCAP3,$dCAP4
+	[ $QEP1 -eq 0 ] && [ $QEP2 -eq 1 ] && [ $QEP3 -eq 1 ] && [ $QEP4 -eq 0 ] && [ $dCAP1 -eq 1 ] && [ $dCAP2 -eq 0 ] && [ $dCAP3 -eq 1 ] && [ $dCAP4 -eq 0 ] && echo " -->Enable2 OK"
+}
+
+
+
+test1
+test2

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+CAP_OE1=330
+CAP_OE2=331
+s=$(gpio input 419)
+s=$(gpio input 418)
+s=$(gpio input 343)
+s=$(gpio input 344)
+s=$(gpio input 353)
+gpio set $CAP_OE1	#OE1
+gpio set $CAP_OE2	#OE2
+
+CAP1=$(gpio input 275)  #CAP1
+CAP2=$(gpio input 277)	#CAP2
+CAP3=$(gpio input 278)	#CAP3
+CAP4=$(gpio input 361)	#CAP4
+
+echo $CAP1,$CAP2,$CAP3,$CAP4
+
+
+gpio clear $CAP_OE1    #OE1
+gpio clear $CAP_OE2    #OE2
+
+CAP1=$(gpio input 275)  #CAP1
+CAP2=$(gpio input 277)  #CAP2
+CAP3=$(gpio input 278)  #CAP3
+CAP4=$(gpio input 361)  #CAP4
+
+echo $CAP1,$CAP2,$CAP3,$CAP4

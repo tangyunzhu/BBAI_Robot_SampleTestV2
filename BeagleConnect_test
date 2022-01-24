@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rst=326
+rst=364
 
 tty_pairs ttyUSB0,ttyS4
 gpio set $rst

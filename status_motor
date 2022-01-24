@@ -4,7 +4,7 @@ adc1_dir=/sys/bus/iio/devices/iio:device5
 
 # (K25) MCU_ADC0_AIN0 Battery_Voltage
 # (K26) MCU_ADC0_AIN1 Motor1_Curren
-# (K28) MCU_ADC0_AIN2 Motor4_IPROPI
+# (K25) MCU_ADC0_AIN5 Motor4_IPROPI
 # (K24) MCU_ADC0_AIN4 Motor2_IPROPI
 # (K29) MCU_ADC0_AIN6 Motor3_IPROPI
 #
@@ -18,10 +18,10 @@ Motor4_FAULT=317
 function adc_read() {
 	cd $adc0_dir
 	r0=$(cat in_voltage0_raw)
-	r1=$(cat in_voltage1_raw)
-	r2=$(cat in_voltage5_raw)
-        r4=$(cat in_voltage4_raw)
-        r6=$(cat in_voltage6_raw)
+	r1=$(cat in_voltage1_raw)  #Motor1
+	r2=$(cat in_voltage5_raw)  #Motor4
+        r4=$(cat in_voltage4_raw)  #Motor2
+        r6=$(cat in_voltage6_raw)  #Motor3
 
 
 	Vin0=$(( r0 * 1800 / 4096 ))

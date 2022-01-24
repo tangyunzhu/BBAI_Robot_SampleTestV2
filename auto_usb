@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mount /dev/sda1 /mnt
+dd if=/dev/zero of=/mnt/test bs=1M count=2 conv=fdatasync
+sync
+sudo sh -c "sync && echo 3 > /proc/sys/vm/drop_caches"
+sync
+dd if=/mnt/test of=/dev/null
+sync
+umount /dev/sda1

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+leds
+gpio set 304
+gpio set 389
+sleep 0.5
+gpio clear 304
+gpio clear 389
+sleep 0.5
+gpio set 304
+gpio set 389
+sleep 0.5
+gpio clear 304
+gpio clear 389
+

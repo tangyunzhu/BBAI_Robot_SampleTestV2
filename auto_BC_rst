@@ -1,0 +1,12 @@
+#!/bin/bash
+gpio set 364
+sleep 2
+gpio clear 364
+sleep 2
+gpio set 364
+sleep 2
+gpio clear 364
+sleep 2
+gpio set 364
+sleep 2
+gpio clear 364

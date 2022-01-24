@@ -1,3 +1,4 @@
 #!/bin/bash
+gpio clear 374
 tty_pairs ttyS6,ttyS10 && echo "GPS&Lida OK"
 

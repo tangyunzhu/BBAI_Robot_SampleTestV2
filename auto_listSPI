@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ls /sys/bus/iio/devices/ -l
+cat /sys/bus/iio/devices/iio:device0/name
+cat /sys/bus/iio/devices/iio:device1/name
+cat /sys/bus/iio/devices/iio:device2/name
+cat /sys/bus/iio/devices/iio:device3/name

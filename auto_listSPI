@@ -1,7 +1,76 @@
 #!/bin/bash
 
-ls /sys/bus/iio/devices/ -l
-cat /sys/bus/iio/devices/iio:device0/name
-cat /sys/bus/iio/devices/iio:device1/name
-cat /sys/bus/iio/devices/iio:device2/name
-cat /sys/bus/iio/devices/iio:device3/name
+dir0="/sys/bus/iio/devices/iio:device0/"
+dir1="/sys/bus/iio/devices/iio:device1/"
+dir2="/sys/bus/iio/devices/iio:device2/"
+dir3="/sys/bus/iio/devices/iio:device3/"
+
+name0="bmm150_magn"
+name1="bmp280"
+name2="lsm6ds3tr-c_gyro"
+name3="lsm6ds3tr-c_accel"
+
+i=0
+
+a=($dir0 $dir1 $dir2 $dir3)
+for str in ${a[@]}; do
+	name_r=$(cat $str/name)
+	if [ $name_r = $name0 ];then
+		echo "---------------------$name0---------------------------"
+		agn_sampling_frequency=$(cat $str/in_magn_sampling_frequency)
+		magn_scale=$(cat $str/in_magn_scale)
+		in_magn_x_oversampling_ratio=$(cat $str/in_magn_x_oversampling_ratio)
+		in_magn_x_raw=$(cat $str/in_magn_x_raw)
+		in_magn_y_raw=$(cat $str/in_magn_y_raw)
+		in_magn_z_raw=$(cat $str/in_magn_z_raw)
+		echo "magn_sampling_frequency is: " $magn_sampling_frequency
+		echo "magn_scale is: " $magn_scale
+		echo "magn_x_raw is: " $in_magn_x_raw
+		echo "magn_y_raw is: " $in_magn_y_raw
+		echo "magn_z_raw is: " $in_magn_z_raw
+		echo ""
+		echo ""
+		let i=i+1
+	fi
+
+        if [ $name_r = $name1 ];then
+		echo "------------------------$name1-----------------------------"
+		in_pressure_input=$(cat $str/in_pressure_input)
+		in_pressure_oversampling_ratio=$(cat $str/in_pressure_oversampling_ratio)
+		in_temp_input=$(cat $str/in_temp_input)
+		in_temp_oversampling_ratio=$(cat $str/in_temp_oversampling_ratio)
+		echo "pressure_oversampling_ratio,pressure is: " $in_pressure_oversampling_ratio, $in_pressure_input
+		echo "temp_oversampling_ratio,temp is: " $in_temp_oversampling_ratio, $in_temp_input
+		echo ""
+		echo ""
+		let i=i+1
+        fi
+
+        if [ $name_r = $name2 ];then
+		echo "-------------------$name2-----------------------"
+                x=$(cat $str/in_anglvel_x_raw);y=$(cat $str/in_anglvel_y_raw); z=$(cat $str/in_anglvel_z_raw)
+		echo "X,Y,Z=" $x,$y,$z
+		echo ""
+		echo ""
+		let i=i+1
+        fi
+
+        if [ $name_r = $name3 ];then
+		echo "-------------------$name3----------------------"
+		x=$(cat $str/in_accel_x_raw);y=$(cat $str/in_accel_y_raw); z=$(cat $str/in_accel_z_raw)
+		echo "X,Y,Z=" $x,$y,$z
+		echo ""
+		echo ""
+		let i=i+1
+        fi
+
+
+
+done
+
+if [ $i -eq 4 ]; then
+	echo -e "\e[32m->Sensor OK \e[0m"
+else
+	ls /sys/bus/iio/devices/ -l
+	echo -e "\e[31m->Sensor FAIL \e[0m"
+fi

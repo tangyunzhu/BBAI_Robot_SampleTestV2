@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sudo i2ctransfer -y -a 7 w17@0x50 0x00 0x00+ || { echo -e "\e[31m->Write eeprom[0x50] FAIL \e[0m";exit 5; }
+sudo i2cdump -y -a 7 0x50 || { echo -e "\e[31m->Read eeprom[0x50] FAIL \e[0m";exit 6; }
+echo -e "\e[32m->EEPROM[0x50] operater OK \e[0m"
+
+
+sudo i2ctransfer -y -a 7 w17@0x51 0x00 0x00+ || { echo -e "\e[31m->Write eeprom[0x51] FAIL \e[0m";exit 7; }
+sudo i2cdump -y -a 7 0x51 || { echo -e "\e[31m->Read eeprom[0x51] FAIL \e[0m";exit 8; }
+echo -e "\e[32m->EEPROM[0x51] operater OK \e[0m"
